@@ -19,6 +19,5 @@ public class ISConstant {
 	public static final String parentFistName = "demo father";
 	public static final String parentMiddleName = "Kumar";
 	public static final String parentLastName = "Singh";
-	public static final String newVariable = "test";
 
 }
