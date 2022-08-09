@@ -58,7 +58,7 @@ public class ISsignupTest {
 		} else if ("Collaborative".equalsIgnoreCase(ISConstant.learningProgram)) {
 			driver.navigate().to("http://164.52.198.42:" + ISConstant.port + "/istest/student/signup?signupMode=BATCH"); // Colaborative
 		} else if ("Accelerated".equalsIgnoreCase(ISConstant.learningProgram)) {
-			driver.navigate().to("http://164.52.198.42:" + ISConstant.port + "/istest/student/signup/Anchored-Education?signupMode=SCHOLARSHIP");
+			driver.navigate().to("http://164.52.198.42:" + ISConstant.port + "/istest/student/signup/international-schooling?signupMode=SCHOLARSHIP");
 			academicStartDate = true;
 		}
 		driver.manage().window().maximize();
@@ -101,60 +101,43 @@ public class ISsignupTest {
 			}
 		}
 
-		if (backToStep1) {
-			Thread.sleep(2000);
-			js.executeScript("window.scrollBy(0,document.body.scrollHeight)"); // scroll 1
-			Robot rob = new Robot();
-			rob.mouseMove(350, 780);
-			rob.mousePress(InputEvent.BUTTON1_DOWN_MASK); // click 1
-			Thread.sleep(100);
-			rob.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
-
-//			js.executeScript("window.scrollBy(0,document.body.scrollHeight)");         //scroll 2
-			Thread.sleep(2000);
-			rob.mouseMove(1100, 680);
-			rob.mousePress(InputEvent.BUTTON1_DOWN_MASK); // click 2
-			Thread.sleep(100);
-			rob.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
-
-//			js.executeScript("window.scrollBy(0,document.body.scrollHeight)");         //scroll 3
-			Thread.sleep(2000);
-			rob.mouseMove(1299, 306);
-			rob.mousePress(InputEvent.BUTTON1_DOWN_MASK); // click 3
-			Thread.sleep(100);
-			rob.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
-
-			js.executeScript("window.scrollBy(0,document.body.scrollHeight)"); // scroll 4
-			Thread.sleep(2000);
-			rob.mouseMove(350, 780);
-			rob.mousePress(InputEvent.BUTTON1_DOWN_MASK); // click 4
-			Thread.sleep(100);
-			rob.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
-
-			js.executeScript("window.scrollBy(0,document.body.scrollHeight)"); // scroll 5
-			Thread.sleep(2000);
-			rob.mouseMove(350, 780);
-			rob.mousePress(InputEvent.BUTTON1_DOWN_MASK); // click 5
-			Thread.sleep(100);
-			rob.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
+		if (backToStep1) { 
+			if(driver.findElement(By.xpath("/html/body/div[1]/div[2]/div/div[2]/section[1]/form/div/div[4]/div[1]/input")).isDisplayed()) {
+				System.out.println("Step 1");
+				
+			} else if(driver.findElement(By.xpath("/html/body/div[1]/div[2]/div/div[2]/section[2]/form/div/h3")).isDisplayed()) {
+				System.out.println("Step 2");
+				wait.until(ExpectedConditions.elementToBeClickable(By.linkText("Back")));
+				driver.findElement(By.linkText("Back")).click();
+			} else if(driver.findElement(By.xpath("/html/body/div[1]/div[2]/div/div[2]/section[3]/form/div/h3")).isDisplayed()) {
+				System.out.println("Step 3");
+				wait.until(ExpectedConditions.elementToBeClickable(By.linkText("Back")));
+				driver.findElement(By.linkText("Back")).click();
+				wait.until(ExpectedConditions.elementToBeClickable(By.linkText("Back")));
+				driver.findElement(By.linkText("Back")).click();
+			} else if(driver.findElement(By.xpath("/html/body/div[1]/div[2]/div/div[2]/section[4]/div/section/h3")).isDisplayed()) {
+				System.out.println("Step 4");
+				wait.until(ExpectedConditions.elementToBeClickable(By.linkText("Back")));
+				driver.findElement(By.linkText("Back")).click();
+				wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div[1]/div[2]/div/div[2]/section[3]/form/div/div[2]/div[4]/div/div/div[1]/button/span")));
+				driver.findElement(By.xpath("/html/body/div[1]/div[2]/div/div[2]/section[3]/form/div/div[2]/div[4]/div/div/div[1]/button/span")).click();
+				wait.until(ExpectedConditions.elementToBeClickable(By.linkText("Back")));
+				driver.findElement(By.linkText("Back")).click();
+				wait.until(ExpectedConditions.elementToBeClickable(By.linkText("Back")));
+				driver.findElement(By.linkText("Back")).click();
+			}
 			continueWithStep1 = true;
-			planFresh = false;
 		}
 
 // SignUp Form STEP 1
 		Thread.sleep(2000);
 		if (continueWithStep1) {
 			signupPageStep1();
-			System.out.println(gNumber);
+			
 // SignUp Form STEP 2
 
-			wait.until(ExpectedConditions.elementToBeClickable(
-					By.xpath("/html/body/div[1]/div[2]/div/div[2]/section[2]/form/div/div[1]/div[1]/input")));
-
 			signupPageStep2();
-// Parent SignUp
-			parentSignup();
-
+			
 // SignUp Form Step 3
 			Thread.sleep(2000);
 			WebElement elementStep3 = driver
@@ -165,7 +148,7 @@ public class ISsignupTest {
 					String cred = driver.findElement(By.id("totalCreditKg")).getText();
 					String[] credit = cred.split(":");
 					float credNumber = Float.parseFloat(credit[1]);
-					if(credNumber<2) {
+					if(credNumber<3) {
 					 if(gNumber==6 || gNumber==7) {
 					wait.until(ExpectedConditions.elementToBeClickable(By.id("courseId_1")));
 					driver.findElement(By.id("courseId_1")).click();
@@ -250,7 +233,7 @@ public class ISsignupTest {
 					String cred = driver.findElement(By.id("totalCreditKg")).getText();
 					String[] credit = cred.split(":");
 					Float credNumber = Float.parseFloat(credit[1]);
-					if(credNumber<2) {
+					if(credNumber<3) {
 						wait.until(ExpectedConditions.elementToBeClickable(By.id("courseId_1")));
 						driver.findElement(By.id("courseId_1")).click();
 						if(gNumber==9) {
@@ -363,7 +346,6 @@ public class ISsignupTest {
 						.elementToBeClickable(By.partialLinkText("Continue")));
 				Thread.sleep(2000);
 				driver.findElement(By.partialLinkText("Continue")).click();
-				
 				Thread.sleep(2000);
 			}
 
@@ -371,24 +353,9 @@ public class ISsignupTest {
 
 			if ("advantage".equalsIgnoreCase(ISConstant.plan)) {
 				Thread.sleep(700);
-				if (planFresh) {
-					WebElement elementFresh = driver.findElement(By.xpath(
-							"//*[@id=\"studentPaymentModal\"]/div/div/div[2]/div/div[2]/div[4]/div/div[3]/div/div[2]/button"));
-					js.executeScript("arguments[0].scrollIntoView();", elementFresh);
-					elementFresh.click();
-				} else if (driver.findElement(By.xpath(
-						"/html/body/div[1]/div[2]/div/div[2]/section[3]/form/div/div[2]/div[5]/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div[2]/button"))
-						.isDisplayed()) {
-					WebElement elementExistwithBook = driver.findElement(By.xpath(
-							"/html/body/div[1]/div[2]/div/div[2]/section[3]/form/div/div[2]/div[5]/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div[2]/button"));
-					js.executeScript("arguments[0].scrollIntoView();", elementExistwithBook);
-					elementExistwithBook.click();
-				} else {
-					WebElement elementExsist = driver.findElement(By.xpath(
-							"/html/body/div[1]/div[2]/div/div[2]/section[3]/form/div/div[2]/div[5]/div/div/div[2]/div/div[2]/div[4]/div/div[3]/div/div[2]/button"));
-					js.executeScript("arguments[0].scrollIntoView();", elementExsist);
-					elementExsist.click();
-				}
+				wait.until(ExpectedConditions
+						.elementToBeClickable(By.cssSelector("button[class='btn theme-bg primary-bg white-txt-color text-right']")));
+				driver.findElement(By.cssSelector("button[class='btn theme-bg primary-bg white-txt-color text-right']")).click();
 				Thread.sleep(1000);
 				driver.findElement(By.xpath("/html/body/div[1]/div[2]/div/div[3]/ul/li[3]/a")).click();
 
@@ -408,12 +375,9 @@ public class ISsignupTest {
 						By.xpath("//*[@id=\"studentPaymentModal\"]/div/div/div[2]/div/div[2]/div[1]/div/div[2]/label"));
 				js.executeScript("arguments[0].click();", easyPlan);
 				Thread.sleep(2000);
-				WebElement feeProceed = driver.findElement(By.xpath(
-						"//*[@id=\"studentPaymentModal\"]/div/div/div[2]/div/div[2]/div[4]/div/div[3]/div/div[2]/button"));
-				js.executeScript("arguments[0].scrollIntoView();", feeProceed);
-				driver.findElement(By.xpath(
-						"//*[@id=\"studentPaymentModal\"]/div/div/div[2]/div/div[2]/div[4]/div/div[3]/div/div[2]/button"))
-						.click();// Proceed Button
+				wait.until(ExpectedConditions
+						.elementToBeClickable(By.cssSelector("button[class='btn theme-bg primary-bg white-txt-color text-right']")));
+				driver.findElement(By.cssSelector("button[class='btn theme-bg primary-bg white-txt-color text-right']")).click();// Proceed Button
 				wait.until(ExpectedConditions.elementToBeClickable(By.linkText("Confirm & Pay")));
 				driver.findElement(By.linkText("Confirm & Pay")).click();
 
@@ -606,7 +570,6 @@ public class ISsignupTest {
 			if (titleName.contains("Dash")) {
 				atDashboard = true;
 			} else {
-				atDashboard = false;
 				backToStep1 = true;
 			}
 
@@ -684,8 +647,10 @@ public class ISsignupTest {
 		driver.findElement(By.xpath("/html/body/div[1]/div[2]/div/div[3]/ul/li[2]/a")).click();
 	}
 
-	public static void signupPageStep2() {
-
+	public static void signupPageStep2() throws InterruptedException {
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+		wait.until(ExpectedConditions.elementToBeClickable(
+				By.xpath("/html/body/div[1]/div[2]/div/div[2]/section[2]/form/div/div[1]/div[1]/input")));
 		WebElement s2e1 = driver
 				.findElement(By.xpath("/html/body/div[1]/div[2]/div/div[2]/section[2]/form/div/div[1]/div[1]/input"));
 		String s2element1 = s2e1.getAttribute("value");
@@ -703,7 +668,8 @@ public class ISsignupTest {
 					.click();
 			driver.findElement(By.xpath("/html/body/span/span/span[1]/input")).sendKeys("Father", Keys.ENTER);
 		}
-
+// Parent SignUp
+		    parentSignup();
 	}
 
 	public static void parentSignup() throws InterruptedException {
@@ -866,82 +832,43 @@ public class ISsignupTest {
 				"/html/body/div[1]/div[2]/div/div[2]/section[4]/div/div[2]/div/div/div[2]/form/div/div/div/button"))
 				.click();
 	}
+	
+	public static void payNow() throws InterruptedException {
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+		driver.findElement(By.cssSelector("button[class='btn btn-primary']")).click();
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"chkval\"]")));
+		driver.findElement(By.xpath("//*[@id=\"chkval\"]")).click();
+		driver.findElement(By.id("payTabData")).click();
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath(
+				"/html/body/div[1]/div[24]/div[3]/div/div/div[2]/section/div[2]/div[2]/div[1]/div[1]/div[3]/div/span")));
+		driver.findElement(By.xpath(
+				"/html/body/div[1]/div[24]/div[3]/div/div/div[2]/section/div[2]/div[2]/div[1]/div[1]/div[3]/div/span"))
+				.click();
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath(
+				"/html/body/div[1]/div/div/div[2]/div/div[2]/form/div[1]/div/div/div[2]/div/div[1]/div[1]/fieldset/div/div[1]/div/div[1]/span/input")));
+		gatewayStripe();
+		Thread.sleep(10000);
+		driver.navigate().refresh();
+		wait.until(ExpectedConditions
+				.elementToBeClickable(By.xpath("/html/body/div/div[2]/div[1]/div[4]/div[1]/ul/li[5]/a")));
+		driver.findElement(By.xpath("/html/body/div/div[2]/div[1]/div[4]/div[1]/ul/li[5]/a")).click();
+		Thread.sleep(2000);
+	}
 
 	public static void restOfInstallments() throws InterruptedException {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 		wait.until(ExpectedConditions
 				.elementToBeClickable(By.xpath("/html/body/div/div[2]/div[1]/div[4]/div[1]/ul/li[5]/a")));
 		driver.findElement(By.xpath("/html/body/div/div[2]/div[1]/div[4]/div[1]/ul/li[5]/a")).click();
-		if(driver.findElement(By.xpath("//*[@id=\"feeSchedule\"]/tbody/tr[1]/td[4]")).getText()
-				.equalsIgnoreCase("Course Fee - One Time Payment")) {
-			nextInstallments = false;
-		}else {
-			nextInstallments = true;
-		}
-		if (nextInstallments) {
-				if (driver.findElement(By.xpath("//*[@id=\"feeSchedule\"]/tbody/tr[1]/td[4]")).getText()
-					.equalsIgnoreCase("Book an Enrollment Seat Fee")) {
-				wait.until(ExpectedConditions.elementToBeClickable(By.xpath(
-						"/html/body/div/div[2]/div[2]/div[1]/div/div[2]/div/div/div/div[2]/div/table/tbody/tr[3]/td[8]/button")));
-				driver.findElement(By.xpath(
-						"/html/body/div/div[2]/div[2]/div[1]/div/div[2]/div/div/div/div[2]/div/table/tbody/tr[3]/td[8]/button"))
-						.click();
-				secondPaidWithBook = true;
-			} else {
-				wait.until(ExpectedConditions.elementToBeClickable(By.xpath(
-						"/html/body/div/div[2]/div[2]/div[1]/div/div[2]/div/div/div/div[2]/div/table/tbody/tr[2]/td[8]/button")));
-				driver.findElement(By.xpath(
-						"/html/body/div/div[2]/div[2]/div[1]/div/div[2]/div/div/div/div[2]/div/table/tbody/tr[2]/td[8]/button"))
-						.click();
-				secondPaidonly = true;
+		if (driver.findElement(By.cssSelector("button[class='btn btn-primary']")).isDisplayed()) {
+			payNow();
+			if (driver.findElement(By.cssSelector("button[class='btn btn-primary']")).isDisplayed()) {
+				payNow();
+				if (driver.findElement(By.cssSelector("button[class='btn btn-primary']")).isDisplayed()) {
+					payNow();
 			}
-			wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"chkval\"]")));
-			driver.findElement(By.xpath("//*[@id=\"chkval\"]")).click();
-			driver.findElement(By.id("payTabData")).click();
-			wait.until(ExpectedConditions.elementToBeClickable(By.xpath(
-					"/html/body/div[1]/div[24]/div[3]/div/div/div[2]/section/div[2]/div[2]/div[1]/div[1]/div[3]/div/span")));
-			driver.findElement(By.xpath(
-					"/html/body/div[1]/div[24]/div[3]/div/div/div[2]/section/div[2]/div[2]/div[1]/div[1]/div[3]/div/span"))
-					.click();
-			wait.until(ExpectedConditions.elementToBeClickable(By.xpath(
-					"/html/body/div[1]/div/div/div[2]/div/div[2]/form/div[1]/div/div/div[2]/div/div[1]/div[1]/fieldset/div/div[1]/div/div[1]/span/input")));
-			gatewayStripe();
-			Thread.sleep(10000);
-			driver.navigate().refresh();
-
-			wait.until(ExpectedConditions
-					.elementToBeClickable(By.xpath("/html/body/div/div[2]/div[1]/div[4]/div[1]/ul/li[5]/a")));
-			driver.findElement(By.xpath("/html/body/div/div[2]/div[1]/div[4]/div[1]/ul/li[5]/a")).click();
-			Thread.sleep(2000);
-			if (secondPaidWithBook) {
-				wait.until(ExpectedConditions.elementToBeClickable(By.xpath(
-						"/html/body/div/div[2]/div[2]/div[1]/div/div[2]/div/div/div/div[2]/div/table/tbody/tr[4]/td[8]/button")));
-				driver.findElement(By.xpath(
-						"/html/body/div/div[2]/div[2]/div[1]/div/div[2]/div/div/div/div[2]/div/table/tbody/tr[4]/td[8]/button"))
-						.click();
-			} else if (secondPaidonly) {
-				wait.until(ExpectedConditions.elementToBeClickable(By.xpath(
-						"/html/body/div/div[2]/div[2]/div[1]/div/div[2]/div/div/div/div[2]/div/table/tbody/tr[3]/td[8]/button")));
-				driver.findElement(By.xpath(
-						"/html/body/div/div[2]/div[2]/div[1]/div/div[2]/div/div/div/div[2]/div/table/tbody/tr[3]/td[8]/button"))
-						.click();
-			}
-
-			wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"chkval\"]")));
-			driver.findElement(By.xpath("//*[@id=\"chkval\"]")).click();
-			driver.findElement(By.id("payTabData")).click();
-			wait.until(ExpectedConditions.elementToBeClickable(By.xpath(
-					"/html/body/div[1]/div[24]/div[3]/div/div/div[2]/section/div[2]/div[2]/div[1]/div[1]/div[3]/div/span")));
-			driver.findElement(By.xpath(
-					"/html/body/div[1]/div[24]/div[3]/div/div/div[2]/section/div[2]/div[2]/div[1]/div[1]/div[3]/div/span"))
-					.click();
-			wait.until(ExpectedConditions.elementToBeClickable(By.xpath(
-					"/html/body/div[1]/div/div/div[2]/div/div[2]/form/div[1]/div/div/div[2]/div/div[1]/div[1]/fieldset/div/div[1]/div/div[1]/span/input")));
-			gatewayStripe();
-			Thread.sleep(10000);
-			driver.navigate().refresh();
 		}
-
+	}
 	}
 
 }

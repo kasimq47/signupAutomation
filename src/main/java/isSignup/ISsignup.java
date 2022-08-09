@@ -7,6 +7,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.Date;
+import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -36,6 +37,7 @@ public class ISsignup {
 	public static boolean middle;
 	public static boolean high;
 	public static int gNumber;
+	public static int numberOfCourse;
 
 	public static DateFormat dateFormat = new SimpleDateFormat("MM/dd/YYYY");
 	public static Date date = new Date();
@@ -56,7 +58,7 @@ public class ISsignup {
 		} else if ("Collaborative".equalsIgnoreCase(ISConstant.learningProgram)) {
 			driver.navigate().to("http://164.52.198.42:" + ISConstant.port + "/istest/student/signup?signupMode=BATCH"); // Colaborative
 		} else if ("Accelerated".equalsIgnoreCase(ISConstant.learningProgram)) {
-			driver.navigate().to("http://164.52.198.42:" + ISConstant.port + "/istest/student/signup/Anchored-Education?signupMode=SCHOLARSHIP");
+			driver.navigate().to("http://164.52.198.42:" + ISConstant.port + "/istest/student/signup/international-schooling?signupMode=SCHOLARSHIP");
 			academicStartDate = true;
 		}
 		driver.manage().window().maximize();
@@ -71,11 +73,8 @@ public class ISsignup {
 
 		if (atDashboard) {
 			System.out.print("STUDENT AT DASHBOARD");
-
-			wait.until(ExpectedConditions
-					.elementToBeClickable(By.xpath("/html/body/div/div[2]/div[1]/div[4]/div[1]/ul/li[5]/a")));
-			driver.findElement(By.xpath("/html/body/div/div[2]/div[1]/div[4]/div[1]/ul/li[5]/a")).click();
-
+			restOfInstallments();
+			managesession();
 		}
 
 // Verify Account
@@ -148,13 +147,12 @@ public class ISsignup {
 			signupPageStep1();
 			System.out.println(gNumber);
 // SignUp Form STEP 2
-//		Thread.sleep(2000);
 
 			wait.until(ExpectedConditions.elementToBeClickable(
 					By.xpath("/html/body/div[1]/div[2]/div/div[2]/section[2]/form/div/div[1]/div[1]/input")));
 
 			signupPageStep2();
-			// Parent SignUp
+// Parent SignUp
 			parentSignup();
 
 // SignUp Form Step 3
@@ -167,7 +165,7 @@ public class ISsignup {
 					String cred = driver.findElement(By.id("totalCreditKg")).getText();
 					String[] credit = cred.split(":");
 					float credNumber = Float.parseFloat(credit[1]);
-					if(credNumber<2) {
+					if(credNumber<3) {
 					 if(gNumber==6 || gNumber==7) {
 					wait.until(ExpectedConditions.elementToBeClickable(By.id("courseId_1")));
 					driver.findElement(By.id("courseId_1")).click();
@@ -251,10 +249,110 @@ public class ISsignup {
 				} else if(high) {
 					String cred = driver.findElement(By.id("totalCreditKg")).getText();
 					String[] credit = cred.split(":");
-					int credNumber = Integer.parseInt(credit[1]);
-					if(credNumber<2) {
+					Float credNumber = Float.parseFloat(credit[1]);
+					if(credNumber<3) {
+						wait.until(ExpectedConditions.elementToBeClickable(By.id("courseId_1")));
+						driver.findElement(By.id("courseId_1")).click();
+						if(gNumber==9) {
+							wait.until(ExpectedConditions.elementToBeClickable(By.id("course_id_12535")));
+							driver.findElement(By.id("course_id_12535")).click();
+							}else if(gNumber==10) {
+								wait.until(ExpectedConditions.elementToBeClickable(By.id("course_id_6663")));
+								driver.findElement(By.id("course_id_6663")).click();
+								}
+						wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("commonloaderId")));
 						
+						driver.findElement(By.id("courseId_2")).click();
+						if(gNumber==9) {
+							wait.until(ExpectedConditions.elementToBeClickable(By.id("course_id_6932")));
+							driver.findElement(By.id("course_id_6932")).click();
+							}else if(gNumber==10) {
+								wait.until(ExpectedConditions.elementToBeClickable(By.id("course_id_6666")));
+								driver.findElement(By.id("course_id_6666")).click();
+								}
+						wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("commonloaderId")));
 						
+						driver.findElement(By.id("courseId_3")).click();
+						if(gNumber==9) {
+							wait.until(ExpectedConditions.elementToBeClickable(By.id("course_id_6936")));
+							driver.findElement(By.id("course_id_6936")).click();
+							}else if(gNumber==10) {
+								wait.until(ExpectedConditions.elementToBeClickable(By.id("course_id_6937")));
+								driver.findElement(By.id("course_id_6937")).click();
+								}
+						wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("commonloaderId")));
+						
+						driver.findElement(By.id("courseId_4")).click();
+						if(gNumber==9) {
+							wait.until(ExpectedConditions.elementToBeClickable(By.id("course_id_6922")));
+							driver.findElement(By.id("course_id_6922")).click();
+							}else if(gNumber==10) {
+								wait.until(ExpectedConditions.elementToBeClickable(By.id("course_id_6915")));
+								driver.findElement(By.id("course_id_6915")).click();
+								}
+						wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("commonloaderId")));
+						
+						driver.findElement(By.id("courseId_5")).click();
+						if(gNumber==9) {
+							wait.until(ExpectedConditions.elementToBeClickable(By.id("course_id_6640")));
+							driver.findElement(By.id("course_id_6640")).click();
+							}else if(gNumber==10) {
+								wait.until(ExpectedConditions.elementToBeClickable(By.id("course_id_6716")));
+								driver.findElement(By.id("course_id_6716")).click();
+								}
+						
+						wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("commonloaderId")));
+						
+						driver.findElement(By.id("courseId_6")).click();
+						if(gNumber==9) {
+							wait.until(ExpectedConditions.elementToBeClickable(By.id("course_id_6656")));
+							driver.findElement(By.id("course_id_6656")).click();
+							}else if(gNumber==10) {
+								wait.until(ExpectedConditions.elementToBeClickable(By.id("course_id_14344")));
+								driver.findElement(By.id("course_id_14344")).click();
+								}
+						
+						wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("commonloaderId")));
+						
+						driver.findElement(By.id("courseId_7")).click();
+						if(gNumber==9) {
+							wait.until(ExpectedConditions.elementToBeClickable(By.id("course_id_6631")));
+							driver.findElement(By.id("course_id_6631")).click();
+							}else if(gNumber==10) {
+								wait.until(ExpectedConditions.elementToBeClickable(By.id("course_id_6707")));
+								driver.findElement(By.id("course_id_6707")).click();
+								}
+						
+						wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("commonloaderId")));
+						
+						driver.findElement(By.id("courseId_8")).click();
+						if(gNumber==9) {
+							wait.until(ExpectedConditions.elementToBeClickable(By.id("course_id_6661")));
+							driver.findElement(By.id("course_id_6661")).click();
+							wait.until(ExpectedConditions.elementToBeClickable(By.id("apCourseSelectionWarningClose")));
+							driver.findElement(By.id("apCourseSelectionWarningClose")).click();
+							}else if(gNumber==10) {
+								wait.until(ExpectedConditions.elementToBeClickable(By.id("course_id_9479")));
+								driver.findElement(By.id("course_id_9479")).click();
+								wait.until(ExpectedConditions.elementToBeClickable(By.id("apCourseSelectionWarningClose")));
+								driver.findElement(By.id("apCourseSelectionWarningClose")).click();
+								wait.until(ExpectedConditions.elementToBeClickable(By.id("noTeacherAssistanceAvailableYes")));
+								driver.findElement(By.id("noTeacherAssistanceAvailableYes")).click();
+								}
+						wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("commonloaderId")));
+						Thread.sleep(4000);
+						driver.findElement(By.id("courseId_8")).click();  // for Material fee
+						if(gNumber==9) {
+							wait.until(ExpectedConditions.elementToBeClickable(By.id("course_id_6662")));
+							driver.findElement(By.id("course_id_6662")).click();
+							}else if(gNumber==10) {
+								wait.until(ExpectedConditions.elementToBeClickable(By.id("course_id_9487")));
+								driver.findElement(By.id("course_id_9487")).click();
+								wait.until(ExpectedConditions.elementToBeClickable(By.id("noTeacherAssistanceAvailableYes")));
+								driver.findElement(By.id("noTeacherAssistanceAvailableYes")).click();
+								}
+						
+						wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("commonloaderId")));
 					}
 					
 				}
@@ -275,7 +373,9 @@ public class ISsignup {
 				Thread.sleep(700);
 				if (planFresh) {
 					WebElement elementFresh = driver.findElement(By.xpath(
-							"//*[@id=\"studentPaymentModal\"]/div/div/div[2]/div/div[2]/div[4]/div/div[3]/div/div[2]/button"));
+							"//*[@id=\"studentPaymentModal\"]/div/div/div[2]/div/div[2]/div[2]/div/div[3]/div/div[2]/button"));
+					         //*[@id="studentPaymentModal"]/div/div/div[2]/div/div[2]/div[4]/div/div[3]/div/div[2]/button          // Previous
+					       
 					js.executeScript("arguments[0].scrollIntoView();", elementFresh);
 					elementFresh.click();
 				} else if (driver.findElement(By.xpath(
@@ -326,7 +426,7 @@ public class ISsignup {
 							"/html/body/div[1]/div/div/div[2]/div/div[2]/form/div[1]/div/div/div[2]/div/div[1]/div[1]/fieldset/div/div[1]/div/div[1]/span/input")));
 					gatewayStripe();
 				}
-				nextInstallments = true;
+//				nextInstallments = true;
 			} else if ("BookeAnEnrollement".equalsIgnoreCase(ISConstant.plan)) {
 				Thread.sleep(700);
 				bookAnEnrollment();
@@ -382,7 +482,7 @@ public class ISsignup {
 						gatewayStripe();
 					}
 				}
-				nextInstallments = true;
+//				nextInstallments = true;
 			} else if ("advantageWithBookAnEnrollement".equalsIgnoreCase(ISConstant.plan)) {
 				Thread.sleep(700);
 				bookAnEnrollment();
@@ -419,10 +519,24 @@ public class ISsignup {
 			if (!onlyBookAnEnrollment) {
 				driver.navigate().refresh();
 				if (academicStartDate) {
+					if(gNumber==9) {
+						wait.until(ExpectedConditions.elementToBeClickable(By.id("6631")));
+						driver.findElement(By.id("6631")).click();
+						wait.until(ExpectedConditions.elementToBeClickable(By.id("saveEligibleCourse")));
+						driver.findElement(By.id("saveEligibleCourse")).click();				
+					} else if(gNumber==10) {
+						wait.until(ExpectedConditions.elementToBeClickable(By.id("6915")));
+						driver.findElement(By.id("6915")).click();
+						wait.until(ExpectedConditions.elementToBeClickable(By.id("9487")));
+						driver.findElement(By.id("9487")).click();
+						wait.until(ExpectedConditions.elementToBeClickable(By.id("saveEligibleCourse")));
+						driver.findElement(By.id("saveEligibleCourse")).click();
+					}
 					wait.until(ExpectedConditions.elementToBeClickable(
 							By.xpath("/html/body/div[1]/div[3]/div/div/div[3]/div/span[2]/input")));
 					driver.findElement(By.xpath("/html/body/div[1]/div[3]/div/div/div[3]/div/span[2]/input"))
 							.sendKeys(Keys.ENTER);
+							 
 					driver.findElement(By.xpath("/html/body/div[1]/div[3]/div[1]/div/div[3]/button")).click();
 				}
 			
@@ -437,7 +551,7 @@ public class ISsignup {
 			}
 	}
 	}
-// -----------------------------------------------------------------------------------------------------------------------------------------------------	
+// :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::	
 	
 	
 	
@@ -494,7 +608,6 @@ public class ISsignup {
 			if (titleName.contains("Dash")) {
 				atDashboard = true;
 			} else {
-				atDashboard = false;
 				backToStep1 = true;
 			}
 
@@ -543,10 +656,13 @@ public class ISsignup {
 			driver.findElement(By.xpath("/html/body/span/span/span[1]/input")).sendKeys("GRADE-0"+ISConstant.grade, Keys.ENTER);
 			} else if(ISConstant.grade>=6 && ISConstant.grade <=8) {
 				driver.findElement(By.xpath("/html/body/span/span/span[1]/input")).sendKeys("GRADE-0"+ISConstant.grade, Keys.ENTER);
-				middle =true;
+//				middle =true;
+			} else if(ISConstant.grade ==9) {
+				driver.findElement(By.xpath("/html/body/span/span/span[1]/input")).sendKeys("GRADE-0"+ISConstant.grade, Keys.ENTER);
+//				high = true;
 			} else {
 				driver.findElement(By.xpath("/html/body/span/span/span[1]/input")).sendKeys("GRADE-"+ISConstant.grade, Keys.ENTER);
-				high = true;
+//				high = true;
 			}
 			
 			sendKeysXPATH("/html/body/div[1]/div[2]/div/div[2]/section[1]/form/div/div[2]/div[2]/input", "11-22-2017");
@@ -675,7 +791,8 @@ public class ISsignup {
 			driver.findElement(By.xpath(
 					"/html/body/div[1]/div[2]/div[2]/div/div[1]/div/div/div[1]/div/div[2]/div/div/div[1]/div[2]/div/label/input"))
 					.sendKeys(ISConstant.id); // Search Id
-
+				wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div[1]/div[2]/div[2]/div/div[1]/div/div/div[1]/div/div[2]/div/div/div[2]/div/table/tbody/tr/td[5]")));
+				String stringGradeNumber = driver.findElement(By.xpath("/html/body/div[1]/div[2]/div[2]/div/div[1]/div/div/div[1]/div/div[2]/div/div/div[2]/div/table/tbody/tr/td[5]")).getText();
 			driver.findElement(By.xpath(
 					"/html/body/div[1]/div[2]/div[2]/div/div[1]/div/div/div[1]/div/div[2]/div/div/div[2]/div/table/tbody/tr/td[8]/div/button"))
 					.click(); // Action
@@ -698,32 +815,30 @@ public class ISsignup {
 			driver.findElement(By.id("weeklyReportFrequency")).click();
 			driver.findElement(By.id("weeklyReportFrequency")).sendKeys("T", Keys.ENTER); // weekly report frequency
 
-			// Create object of the Select class
-			Select se1 = new Select(driver.findElement(By.id("lmsSubjectId1")));
-			se1.selectByIndex(3);
-
-			wait.until(ExpectedConditions.elementToBeClickable(By.id("lmsSubjectId2")));
-			Select se2 = new Select(driver.findElement(By.id("lmsSubjectId2")));
-			se2.selectByIndex(3);
-
-			wait.until(ExpectedConditions.elementToBeClickable(By.id("lmsSubjectId3")));
-			Select se3 = new Select(driver.findElement(By.id("lmsSubjectId3")));
-			se3.selectByIndex(3);
-
-			wait.until(ExpectedConditions.elementToBeClickable(By.id("lmsSubjectId4")));
-			Select se4 = new Select(driver.findElement(By.id("lmsSubjectId4")));
-			se4.selectByIndex(3);
-
-			wait.until(ExpectedConditions.elementToBeClickable(By.id("lmsSubjectId5")));
-			Select se5 = new Select(driver.findElement(By.id("lmsSubjectId5")));
-			se5.selectByIndex(3);
-
-			wait.until(ExpectedConditions.elementToBeClickable(By.id("lmsSubjectId6")));
-			Select se6 = new Select(driver.findElement(By.id("lmsSubjectId6")));
-			se6.selectByIndex(3);
+			String[] sdn = stringGradeNumber.split("-");
+			int gradeNumber= Integer.parseInt(sdn[1]);
+			if(gradeNumber <= 8) {
+			    numberOfCourse = 6;
+			} else {
+				numberOfCourse = 9;
+			}
+			for (int i=1; i<=numberOfCourse; i++) {
+			Select se1 = new Select(driver.findElement(By.id("lmsSubjectId"+i)));
+			se1.selectByIndex(2);
+			Thread.sleep(500);
+			if(driver.findElement(By.id("statusMessage")).isDisplayed()) {
+				driver.findElement(By.id("modalMessage")).click();
+				se1.selectByIndex(3);
+				Thread.sleep(500);
+				if(driver.findElement(By.id("statusMessage")).isDisplayed()) {
+					driver.findElement(By.id("modalMessage")).click();
+					se1.selectByIndex(4);
+				}
+			}
+	}
 			
 			wait.until(ExpectedConditions.elementToBeClickable(By.id("sessionSubjectSave")));
-//			driver.findElement(By.id("sessionSubjectSave")).click();                                      // save disable 
+			driver.findElement(By.id("sessionSubjectSave")).click();                                      // save disable 
 			
 			wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div[1]/div[2]/div[2]/div/div[1]/div/div/div[2]/div[1]/div/div/div[1]/button")));
 			driver.findElement(By.xpath("/html/body/div[1]/div[2]/div[2]/div/div[1]/div/div/div[2]/div[1]/div/div/div[1]/button")).click();		
@@ -755,12 +870,17 @@ public class ISsignup {
 
 	public static void restOfInstallments() throws InterruptedException {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+		wait.until(ExpectedConditions
+				.elementToBeClickable(By.xpath("/html/body/div/div[2]/div[1]/div[4]/div[1]/ul/li[5]/a")));
+		driver.findElement(By.xpath("/html/body/div/div[2]/div[1]/div[4]/div[1]/ul/li[5]/a")).click();
+		if(driver.findElement(By.xpath("//*[@id=\"feeSchedule\"]/tbody/tr[1]/td[4]")).getText()
+				.equalsIgnoreCase("Course Fee - One Time Payment")) {
+			nextInstallments = false;
+		}else {
+			nextInstallments = true;
+		}
 		if (nextInstallments) {
-			wait.until(ExpectedConditions
-					.elementToBeClickable(By.xpath("/html/body/div/div[2]/div[1]/div[4]/div[1]/ul/li[5]/a")));
-			driver.findElement(By.xpath("/html/body/div/div[2]/div[1]/div[4]/div[1]/ul/li[5]/a")).click();
-
-			if (driver.findElement(By.xpath("//*[@id=\"feeSchedule\"]/tbody/tr[1]/td[4]")).getText()
+				if (driver.findElement(By.xpath("//*[@id=\"feeSchedule\"]/tbody/tr[1]/td[4]")).getText()
 					.equalsIgnoreCase("Book an Enrollment Seat Fee")) {
 				wait.until(ExpectedConditions.elementToBeClickable(By.xpath(
 						"/html/body/div/div[2]/div[2]/div[1]/div/div[2]/div/div/div/div[2]/div/table/tbody/tr[3]/td[8]/button")));
